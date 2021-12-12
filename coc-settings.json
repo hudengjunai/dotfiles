@@ -1,8 +1,40 @@
 {
     "languageserver": {
+        "ccls": {
+            "command": "ccls",
+            "filetypes": [
+                "c",
+                "cpp",
+                "cuda",
+                "objc",
+                "objcpp"
+            ],
+            "rootPatterns": [
+                ".ccls-root",
+                "build/compile_commands.json"
+            ],
+            "initializationOptions": {
+                "cache": {
+                    "directory": ".ccls-cache"
+                },
+                "client": {
+                    "snippetSupport": true
+                },
+                "compilationDatabaseDirectory": "build",
+                "clang": {
+                    "extraArgs": [
+                        "-std=c++20",
+                        "-isystem/Library/Developer/CommandLineTools/usr/include/c++/v1",
+                        "-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/"
+                    ]
+                }
+            }
+        },
         "cmake": {
             "command": "cmake-language-server",
-            "filetypes": ["cmake"],
+            "filetypes": [
+                "cmake"
+            ],
             "rootPatterns": [
                 "build/"
             ],
@@ -12,26 +44,43 @@
         },
         "go": {
             "command": "gopls",
-            "rootPatterns": ["go.mod"],
+            "rootPatterns": [
+                "go.mod"
+            ],
             "trace.server": "verbose",
-            "filetypes": ["go"]
+            "filetypes": [
+                "go"
+            ]
         },
         "bash": {
             "command": "bash-language-server",
-            "args": ["start"],
-            "filetypes": ["sh"],
-            "ignoredRootPaths": ["~"]
+            "args": [
+                "start"
+            ],
+            "filetypes": [
+                "sh"
+            ],
+            "ignoredRootPaths": [
+                "~"
+            ]
         },
         "rust": {
             "command": "rust-analyzer",
-            "filetypes": ["rust"],
-            "rootPatterns": ["Cargo.toml"]
+            "filetypes": [
+                "rust"
+            ],
+            "rootPatterns": [
+                "Cargo.toml"
+            ]
         }
     },
     "clangd.path": "/Users/hudengjun/.config/coc/extensions/coc-clangd-data/install/12.0.0/clangd_12.0.0/bin/clangd",
-    "java.configureation.runtimes": [{
-        "name": "JavaSE-11",
-        "path": "/Library/Java/JavaVirtualMachines/jdk-11.0.10.jdk/Contents/Home/bin/java",
-        "default": true
-    }]
+    "java.configureation.runtimes": [
+        {
+            "name": "JavaSE-11",
+            "path": "/Library/Java/JavaVirtualMachines/jdk-11.0.10.jdk/Contents/Home/bin/java",
+            "default": true
+        }
+    ],
+    "java.format.settings.url": "/Users/hudengjun/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml"
 }

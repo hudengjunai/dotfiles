@@ -4,7 +4,7 @@ local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 -- adjust the `cmd` property of the `config`:
 local config = {
   cmd = {
-      "/Library/Java/JavaVirtualMachines/jdk-11.0.10.jdk/Contents/Home/bin/java", 
+      "/Library/Java/JavaVirtualMachines/jdk-11.0.10.jdk/Contents/Home/bin/java",
       "-Declipse.application=org.eclipse.jdt.ls.core.id1",
       "-Dosgi.bundles.defaultStartLevel=4",
       "-Declipse.product=org.eclipse.jdt.ls.core.product",

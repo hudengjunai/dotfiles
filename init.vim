@@ -69,9 +69,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-codelf'
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/webapi-vim'
+Plug 'mattn/vim-gist'
 "Plug 'timonv/vim-cargo' 
 Plug 'cdelledonne/vim-cmake'
 Plug 'ianding1/leetcode.vim'
+Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'liuchengxu/vista.vim'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'tenfyzhong/tagbar-ext.vim'
 call plug#end()
 "Glaive codefmt plugin[mappings]
 colorscheme gruvbox
@@ -166,7 +172,7 @@ nnoremap <Leader>c :IPythonCellExecuteCell<CR>
 nnoremap <Leader>C :IPythonCellExecuteCellJump<CR>
 
 " map <Leader>l to clear IPython screen
-nnoremap <Leader>l :IPythonCellClear<CR>
+"nnoremap <Leader>l :IPythonCellClear<CR>
 
 " map <Leader>x to close all Matplotlib figure windows
 nnoremap <Leader>x :IPythonCellClose<CR>
@@ -361,9 +367,22 @@ let g:leetcode_browser = 'chrome'
 let g:leetcode_solution_filetype='python3'
 let g:leetcode_china=100
 let g:leetcode_hide_paid_only=1
-nnoremap <leader>ll :LeetCodeList<cr>
-nnoremap <leader>lt :LeetCodeTest<cr>
-nnoremap <leader>ls :LeetCodeSubmit<cr>
-nnoremap <leader>li :LeetCodeSignIn<cr>
+
+nnoremap <leader>nll :LeetCodeList<cr>
+nnoremap <leader>nlt :LeetCodeTest<cr>
+nnoremap <leader>nls :LeetCodeSubmit<cr>
+nnoremap <leader>nli :LeetCodeSignIn<cr>
+
 autocmd FileType php noremap <leader>r :w!<CR>:!/usr/bin/php %<CR>
 
+source ~/.config/nvim/latex.vim
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let github_user = 'hudengjunai'
+
+set tags=./.tags;,.tags
+let g:auto_ctags = 1
+let g:auto_ctags_directory_list = ['.git', '.svn']
+let g:auto_ctags_tags_name = '.tags'
+let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes']
+"autocmd BufWritePost *.rb :call CTags()
