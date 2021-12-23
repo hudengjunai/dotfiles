@@ -1,7 +1,7 @@
 set guicursor
 set relativenumber
 set nu
-set nohlsearch
+set hlsearch
 set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -23,7 +23,9 @@ set signcolumn=yes
 set cmdheight=2
 set updatetime=50
 call plug#begin('~/.config/nvim/plugged')
+Plug 'ggandor/lightspeed.nvim' "add jump in vim 
 Plug 'rust-lang/rust.vim'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'gruvbox-community/gruvbox'
@@ -47,10 +49,12 @@ Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'mileszs/ack.vim'
 Plug 'mfussenegger/nvim-jdtls'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
 Plug 'google/vim-glaive'
 
+Plug 'andrejlevkovitch/vim-lua-format'
 "vim test 
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -78,6 +82,7 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'liuchengxu/vista.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'tenfyzhong/tagbar-ext.vim'
+Plug 'preservim/vimux'
 call plug#end()
 "Glaive codefmt plugin[mappings]
 colorscheme gruvbox
@@ -119,8 +124,10 @@ augroup autoformat_settings
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
   autocmd FileType rust AutoFormatBuffer rustfmt
   autocmd FileType vue AutoFormatBuffer prettier
+  autocmd FileType lua AutoFormatBuffer lua-fmt
 augroup END
 
+autocmd BufWrite *.lua call LuaFormat()
 "this is for nerdcommenter
 filetype plugin on 
 source ~/.config/nvim/coco_config.vim
@@ -139,7 +146,8 @@ nnoremap bd :bd<CR>
 au FileType rust nmap <leader>r :RustRun<CR>
 au FileType rust nmap <leader>b :RustBuild<CR>
 
-au FileType cpp nmap <leader>r :!make<CR>
+au FileType cpp nmap <leader>r :!g++ --std=c++20 % && ./a.out<CR>
+au FileType lua nmap <leader>r :!lua %<CR>
 
 "simple for cmake file  
 
@@ -258,10 +266,13 @@ nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
+  "\ 'nearest': 'vimux',
+  "\ 'file':    'neovim',
+  "\ 'suite':   'basic',
 let test#strategy = {
-  \ 'nearest': 'neovim',
-  \ 'file':    'neovim',
-  \ 'suite':   'basic',
+  \ 'nearest': 'vimux',
+  \ 'file':    'vimux',
+  \ 'suite':   'vimux',
 \}
 
 "the vim-gitgutter plugin to show the changed code lines
@@ -386,3 +397,4 @@ let g:auto_ctags_directory_list = ['.git', '.svn']
 let g:auto_ctags_tags_name = '.tags'
 let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes']
 "autocmd BufWritePost *.rb :call CTags()
+let g:lsp_cxx_hl_use_text_props = 1
