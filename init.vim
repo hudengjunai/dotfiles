@@ -49,10 +49,10 @@ Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'mileszs/ack.vim'
 Plug 'mfussenegger/nvim-jdtls'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'octol/vim-cpp-enhanced-highlight'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-Plug 'google/vim-glaive'
 
 Plug 'andrejlevkovitch/vim-lua-format'
 "vim test 
@@ -60,6 +60,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
 Plug 'vim-test/vim-test'
+Plug 'alepez/vim-gtest'
 "Plug "rcarriga/vim-ultest", { "do": ":UpdateRemotePlugins" }
 Plug 'airblade/vim-gitgutter'
 "Plug 'takac/vim-hardtime'
@@ -83,8 +84,12 @@ Plug 'liuchengxu/vista.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'tenfyzhong/tagbar-ext.vim'
 Plug 'preservim/vimux'
+Plug 'google/vim-glaive'
 call plug#end()
-"Glaive codefmt plugin[mappings]
+
+call glaive#Install()
+Glaive codefmt plugin[mappings]
+Glaive codefmt google_java_executable="java -jar /Users/hudengjun/github/google-java-format/core/target/google-java-format-HEAD-SNAPSHOT-all-deps.jar"
 colorscheme gruvbox
 inoremap kj <ESC>
 cnoremap kj <esc>
@@ -256,7 +261,6 @@ nmap ]t <Plug>(ultest-next-fail)
 nmap [t <Plug>(ultest-prev-fail)
 
 
-
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> tt :TestNearest<CR>
@@ -266,6 +270,18 @@ nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
+augroup GTest
+	autocmd FileType cpp nnoremap <silent> <leader>tt :GTestRun<CR>
+	autocmd FileType cpp nnoremap <silent> <leader>tu :GTestRunUnderCursor<CR>
+	autocmd FileType cpp nnoremap          <leader>tc :GTestCase<space>
+	autocmd FileType cpp nnoremap          <leader>tn :GTestName<space>
+	autocmd FileType cpp nnoremap <silent> <leader>te :GTestToggleEnabled<CR>
+	autocmd FileType cpp nnoremap <silent> ]T         :GTestNext<CR>
+	autocmd FileType cpp nnoremap <silent> [T         :GTestPrev<CR>
+	autocmd FileType cpp nnoremap <silent> <leader>tf :CtrlPGTest<CR>
+	autocmd FileType cpp nnoremap <silent> <leader>tj :GTestJump<CR>
+	autocmd FileType cpp nnoremap          <leader>ti :GTestNewTest<CR>i
+augroup END
   "\ 'nearest': 'vimux',
   "\ 'file':    'neovim',
   "\ 'suite':   'basic',
@@ -302,7 +318,6 @@ let g:ackprg ='ag --vimgrep'
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
 nnoremap <leader>tb :Tagbar<CR>
-"Glaive codefmt google_java_executable="java -jar /Users/hudengjun/github/google-java-format/core/target/google-java-format-HEAD-SNAPSHOT-all-deps.jar"
 "
 "remap the buffer swith
 nmap <C-h> <C-w>h
@@ -398,3 +413,20 @@ let g:auto_ctags_tags_name = '.tags'
 let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes']
 "autocmd BufWritePost *.rb :call CTags()
 let g:lsp_cxx_hl_use_text_props = 1
+
+
+let g:cpp_class_scope_highlight = 1 
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+
+"autocmd chapter, event pattern,command
+autocmd BufWritePre,BufRead *.html :normal gg=G
+"autocmd group  for autowrite when leave insert mode , search in  https://vi.stackexchange.com/questions/26415/autosave-in-vim-causing-side-effects 
+autocmd InsertLeave,TextChanged,FocusLost * silent! write 
+
+let g:gtest#print_time =1 
+autocmd FileType markdown setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
