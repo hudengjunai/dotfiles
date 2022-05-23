@@ -42,6 +42,18 @@
             "rootPatterns": [
                 "Cargo.toml"
             ]
+        },
+        "dockerfile": {
+            "command": "docker-langserver",
+            "filetypes": ["dockerfile"],
+            "args": ["--stdio"]
+        },
+        "efm": {
+            "command": "efm-langserver",
+            "args": [],
+            // custom config path
+            // "args": ["-c", "/path/to/your/config.yaml"],
+            "filetypes": ["vim"]
         }
     },
     "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd",
@@ -50,7 +62,7 @@
     "java.configureation.runtimes": [
         {
             "name": "JavaSE-11",
-            "path": "/Library/Java/JavaVirtualMachines/jdk-11.0.10.jdk/Contents/Home/bin/java",
+            "path": "/Library/Java/JavaVirtualMachines/jdk-11.0.10.jdk/Contents/Home",
             "default": true
         }
     ],

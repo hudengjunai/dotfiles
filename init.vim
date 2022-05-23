@@ -1,3 +1,5 @@
+set shell=/bin/zsh
+set encoding=UTF-8
 set guicursor
 set relativenumber
 set nu
@@ -24,6 +26,12 @@ set cmdheight=2
 set updatetime=50
 call plug#begin('~/.config/nvim/plugged')
 Plug 'ggandor/lightspeed.nvim' "add jump in vim 
+"Plug 'cposture/coc-thrift-syntax-support', {'do': 'yarn install --frozen-lockfile && yarn build'}
+Plug 'solarnz/thrift.vim'
+Plug 'google/vim-jsonnet'
+"Plug 'ryanoasis/vim-devicons'
+Plug 'tjdevries/coc-zsh'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'rust-lang/rust.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -84,10 +92,18 @@ Plug 'liuchengxu/vista.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'tenfyzhong/tagbar-ext.vim'
 Plug 'preservim/vimux'
+Plug 'Shougo/unite.vim'
+Plug 'wsdjeg/JavaUnit.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'bazelbuild/vim-bazel'
+Plug 'bazelbuild/vim-ft-bzl'
+Plug 'dylon/vim-antlr'
+Plug 'aperezdc/vim-template'
 Plug 'google/vim-glaive'
 call plug#end()
 
 call glaive#Install()
+call mkdp#util#install()
 Glaive codefmt plugin[mappings]
 Glaive codefmt google_java_executable="java -jar /Users/hudengjun/github/google-java-format/core/target/google-java-format-HEAD-SNAPSHOT-all-deps.jar"
 colorscheme gruvbox
@@ -148,10 +164,17 @@ au FileType go nmap <leader>d <Plug>(go-doc)
 nnoremap bd :bd<CR>
 
 "somple for rust 
-au FileType rust nmap <leader>r :RustRun<CR>
-au FileType rust nmap <leader>b :RustBuild<CR>
+au FileType rust nmap <leader>r :!cargo run<CR>
+au FileType rust nmap <leader>b :!cargo build<CR>
+au FileType vim nmap <leader>r :source %<CR>
+au FileType javascript nmap <leader>r :!node %<CR>
 
-au FileType cpp nmap <leader>r :!g++ --std=c++20 % && ./a.out<CR>
+au FileType markdown nmap <leader>r :MarkdownPreview<CR>
+au FileType markdown nmap <leader>f :CocCommand markdownlint.fixAll<CR>
+
+au FileType cpp nmap <leader>r :!time g++ --std=c++20 -I /opt/vcpkg/installed/x64-osx/include  -L /opt/vcpkg/installed/x64-osx/lib   % -o test  && ./test <CR>
+
+au FileType cpp nmap <leader>R :!time g++ --std=c++20 -I /opt/vcpkg/installed/x64-osx/include  -L /opt/vcpkg/installed/x64-osx/lib  -lgflags -lglog -lfmt -lmurmurhash -lbenchmark  -lfolly -lfolly_test_util  -lfollybenchmark -lgtest -ldouble-conversion -lgtest_main % -o test  && echo "finished"<CR>
 au FileType lua nmap <leader>r :!lua %<CR>
 
 "simple for cmake file  
@@ -172,11 +195,12 @@ let g:slime_dont_ask_default = 1
 "nnoremap <Leader>ss :SlimeSend1 ipython --matplotlib<CR>
 nnoremap <Leader>ss :SlimeSend1 ipython <CR>
 nnoremap <Leader>sp :SlimeSend1 PYSPARK_DRIVER_PYTHON=ipython pyspark <CR>
+nnoremap <Leader>sl :SlimeSend1 scala <CR>
 " map <Leader>r to run script
 "nnoremap <Leader>r :IPythonCellRun<CR>
 
 " map <Leader>R to run script and time the execution
-nnoremap <Leader>R :IPythonCellRunTime<CR>
+autocmd FileType python nnoremap <Leader>R :IPythonCellRunTime<CR>
 
 " map <Leader>c to execute the current cell
 nnoremap <Leader>c :IPythonCellExecuteCell<CR>
@@ -411,6 +435,9 @@ let g:auto_ctags = 1
 let g:auto_ctags_directory_list = ['.git', '.svn']
 let g:auto_ctags_tags_name = '.tags'
 let g:auto_ctags_tags_args = ['--tag-relative=yes', '--recurse=yes', '--sort=yes']
+let g:auto_ctags_filetype_mode = 1
+let g:auto_ctags_set_tags_option = 1
+
 "autocmd BufWritePost *.rb :call CTags()
 let g:lsp_cxx_hl_use_text_props = 1
 
@@ -430,3 +457,13 @@ autocmd InsertLeave,TextChanged,FocusLost * silent! write
 
 let g:gtest#print_time =1 
 autocmd FileType markdown setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+"set tags=./tags,tags
+au BufRead,BufNewFile *.g set filetype=antlr3
+au BufRead,BufNewFile *.g4 set filetype=antlr4
+" loading the plugin
+let g:webdevicons_enable = 1
+" adding the flags to NERDTree
+let g:webdevicons_enable_nerdtree = 1
+
+let g:templates_no_autocmd = 0
+let g:gtest#highlight_failing_tests = 1
