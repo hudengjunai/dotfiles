@@ -31,7 +31,7 @@ Plug 'solarnz/thrift.vim'
 Plug 'google/vim-jsonnet'
 "Plug 'ryanoasis/vim-devicons'
 Plug 'tjdevries/coc-zsh'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'rust-lang/rust.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -103,7 +103,7 @@ Plug 'google/vim-glaive'
 call plug#end()
 
 call glaive#Install()
-call mkdp#util#install()
+"call mkdp#util#install()
 Glaive codefmt plugin[mappings]
 Glaive codefmt google_java_executable="java -jar /Users/hudengjun/github/google-java-format/core/target/google-java-format-HEAD-SNAPSHOT-all-deps.jar"
 colorscheme gruvbox
