@@ -89,7 +89,7 @@ Plug 'ianding1/leetcode.vim'
 Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'liuchengxu/vista.vim'
-Plug 'soramugi/auto-ctags.vim'
+"Plug 'soramugi/auto-ctags.vim'
 Plug 'tenfyzhong/tagbar-ext.vim'
 Plug 'preservim/vimux'
 Plug 'Shougo/unite.vim'
