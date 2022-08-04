@@ -77,7 +77,7 @@ Plug 'luzhlon/xmake.vim'
 Plug 'luzhlon/x.vim'
 Plug 'luzhlon/qrun.vim'
 Plug 'github/copilot.vim'
-Plug 'puremourning/vimspector'
+"Plug 'puremourning/vimspector'
 Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-codelf'
 Plug 'Yggdroot/indentLine'
@@ -350,7 +350,7 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 nnoremap <leader>n :NERDTree<CR>
 
-packadd! vimspector
+"packadd! vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 nnoremap <leader>m :MaximizerToggle!<CR>
